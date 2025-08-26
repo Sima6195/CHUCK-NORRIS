@@ -53,5 +53,6 @@ async function fetchJoke() {
 	} catch (error) {
 		displayJoke.textContent = errorMessage;
 		console.error(error);
+	
 	}
 }

@@ -4,10 +4,12 @@ const displayJoke = document.getElementById("display-joke");
 const category = document.getElementById("category");
 let chosenCategory = `dev`;
 
+// Update chosenCategory when user selects a different option
 category.addEventListener("change", () => {
 	chosenCategory = category.value;
 });
 
+// Generate category options from API
 async function generateCategoryOptions() {
 	let outPut = ``;
 
@@ -19,21 +21,30 @@ async function generateCategoryOptions() {
 		}
 
 		const data = await results.json();
-
 		category.removeAttribute("disabled");
 
-		data.forEach((category) => {
-			outPut += `<option value="${category}">${category}</option>`;
+		data.forEach((cat) => {
+			outPut += `<option value="${cat}">${cat}</option>`;
 		});
 
 		category.innerHTML = outPut;
-		category[3].selected = true;
-	} catch {
+
+		// Set 'dev' as selected if it exists
+		const devOption = Array.from(category.options).find(opt => opt.value === "dev");
+		if (devOption) {
+			devOption.selected = true;
+			chosenCategory = "dev";
+		} else {
+			// fallback to first if dev not found
+			chosenCategory = category.value;
+		}
+	} catch (error) {
 		console.error(error);
 	}
 }
 generateCategoryOptions();
 
+// Fetch and display a joke based on the selected category
 async function fetchJoke() {
 	const errorMessage = `"DO NOT DISTURB!" Chuck Norris is currently entertaining guests in his hotel room.`;
 
@@ -53,6 +64,20 @@ async function fetchJoke() {
 	} catch (error) {
 		displayJoke.textContent = errorMessage;
 		console.error(error);
-	
 	}
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+	const logoutBtn = document.getElementById('logout-btn');
+
+	if (logoutBtn) {
+		logoutBtn.addEventListener('click', function () {
+			localStorage.clear();
+			alert('You have been logged out.');
+			window.location.href = '/login.html';
+		});
+	}
+
+	
+});

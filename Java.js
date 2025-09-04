@@ -4,12 +4,12 @@ const displayJoke = document.getElementById("display-joke");
 const category = document.getElementById("category");
 let chosenCategory = `dev`;
 
-// Update chosenCategory when user selects a different option
+
 category.addEventListener("change", () => {
 	chosenCategory = category.value;
 });
 
-// Generate category options from API
+
 async function generateCategoryOptions() {
 	let outPut = ``;
 
@@ -29,13 +29,13 @@ async function generateCategoryOptions() {
 
 		category.innerHTML = outPut;
 
-		// Set 'dev' as selected if it exists
+		
 		const devOption = Array.from(category.options).find(opt => opt.value === "dev");
 		if (devOption) {
 			devOption.selected = true;
 			chosenCategory = "dev";
 		} else {
-			// fallback to first if dev not found
+		
 			chosenCategory = category.value;
 		}
 	} catch (error) {
@@ -44,7 +44,7 @@ async function generateCategoryOptions() {
 }
 generateCategoryOptions();
 
-// Fetch and display a joke based on the selected category
+
 async function fetchJoke() {
 	const errorMessage = `"DO NOT DISTURB!" Chuck Norris is currently entertaining guests in his hotel room.`;
 

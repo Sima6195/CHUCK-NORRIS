@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+   <link rel="stylesheet" href="/Style.css">
+  </head>
+  <body>
+    <div class="register-container">
+      <h2>Register</h2>
+      <form id="registerForm">
+        <input type="text" id="registerName" placeholder="Enter your name" required />
+        <br>
+        <br>
+        <input type="password" id="registerPassword" placeholder="Password" required />
+        <br>
+        <br>
+        <button type="submit">Register</button>
+      </form>
+      <p >Already registered? <a href="login.html" style="color: rgb(22, 242, 216);">Login here</a></p>
+    </div>
+
+    <script>
+      const form = document.getElementById("registerForm");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("registerName").value;
+        const password = document.getElementById("registerPassword").value;
+
+        localStorage.setItem("user", JSON.stringify({ name, password }));
+        alert("Registered successfully!");
+        window.location.href = "login.html";
+      });
+    </script>
+  </body>
+</html>
+
